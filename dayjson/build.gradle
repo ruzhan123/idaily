@@ -28,9 +28,21 @@ task createDayJson(type:JavaExec) {
     main = "com.feature.dayjson.DayJsonMain"
 }
 
-task exeDayJsonGitCmd(type:Exec) {
-    workingDir '../'
-    commandLine 'pwd'
-    commandLine 'git', 'add', '.'
-    //commandLine 'git', 'commit', '-m', 'update day list data to json file'
+task dayJsonGitCmd() {
+    exeDayJsonGitCmd()
+}
+
+void exeDayJsonGitCmd() {
+    exec {
+        workingDir '../'
+        commandLine 'git', 'add', '.'
+    }
+    exec {
+        workingDir '../'
+        commandLine 'git', 'commit', '-m', 'update day list data to json file'
+    }
+    exec {
+        workingDir '../'
+        commandLine 'git', 'push', 'origin', 'master:master'
+    }
 }
