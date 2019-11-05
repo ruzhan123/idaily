@@ -27,3 +27,10 @@ task createDayJson(type:JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     main = "com.feature.dayjson.DayJsonMain"
 }
+
+task exeDayJsonGitCmd(type:Exec) {
+    workingDir '../'
+    commandLine 'pwd'
+    commandLine 'git', 'add', '.'
+    //commandLine 'git', 'commit', '-m', 'update day list data to json file'
+}

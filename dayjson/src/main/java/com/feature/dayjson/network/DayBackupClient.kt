@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
 object DayBackupClient {
 
     private const val DEFAULT_TIME_OUT = 60L
-    private const val HOST = "https://raw.githubusercontent.com/ruzhan123/awaker/master/json/api/"
+    private const val HOST = "https://raw.githubusercontent.com/ruzhan123/idaily/master/json/api/"
     private var api: DayBackupApi? = null
 
     fun get(): DayBackupApi {
