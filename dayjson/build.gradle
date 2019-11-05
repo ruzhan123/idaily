@@ -23,7 +23,7 @@ tasks.withType(JavaCompile) {
 sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
 
-task createDayJson(type:JavaExec) {
+task createDayJson(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     main = "com.feature.dayjson.DayJsonMain"
 }
@@ -36,17 +36,57 @@ task updateDayJson() {
 }
 
 void exeDayJsonGitCmd() {
-    println("exeDayJsonGitCmd called...")
+    String currentTimeText = getCurrentTimeText()
+    println("exeDayJsonGitCmd called...  currentTimeText: " + currentTimeText)
+    exeDayJsonGitAdd()
+    exeDayJsonGitCommit(currentTimeText)
+    exeDayJsonGitFetch()
+    exeDayJsonGitRebaseMaster()
+    exeDayJsonGitPushMaster()
+}
+
+void exeDayJsonGitFetch() {
+    println("exeDayJsonGitFetch called...")
+    exec {
+        workingDir '../'
+        commandLine 'git', 'fetch', 'origin'
+    }
+}
+
+void exeDayJsonGitRebaseMaster() {
+    println("exeDayJsonGitRebaseMaster called...")
+    exec {
+        workingDir '../'
+        commandLine 'git', 'rebase', 'origin/master'
+    }
+}
+
+void exeDayJsonGitAdd() {
+    println("exeDayJsonGitAdd called...")
     exec {
         workingDir '../'
         commandLine 'git', 'add', '.'
     }
+}
+
+void exeDayJsonGitCommit(String currentTimeText) {
+    println("exeDayJsonGitCommit called...")
     exec {
         workingDir '../'
-        commandLine 'git', 'commit', '-m', 'update day list data to json file'
+        commandLine 'git', 'commit', '-m', 'update idaily list data ' + currentTimeText
     }
+}
+
+void exeDayJsonGitPushMaster() {
+    println("exeDayJsonGitPushMaster called...")
     exec {
         workingDir '../'
         commandLine 'git', 'push', 'origin', 'master:master'
     }
+}
+
+private static def getCurrentTimeText() {
+    String currentTimeText = new Date().format("yyyy-MM-dd hh:mm:ss",
+            TimeZone.getTimeZone("GMT+08:00"))
+    return currentTimeText != null ? currentTimeText : ""
 }
