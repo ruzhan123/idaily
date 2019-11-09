@@ -35,10 +35,6 @@ task updateDayJson() {
     }
 }
 
-task dayJsonGitPushMaster() {
-    exeDayJsonGitPushMaster()
-}
-
 void exeDayJsonGitCmd() {
     String currentTimeText = getCurrentTimeText()
     println("exeDayJsonGitCmd called...  currentTimeText: " + currentTimeText)
