@@ -84,13 +84,20 @@ private static List<String> getCommitContentList() {
     return contentList
 }
 
+private static String getRandomCommitText() {
+    def client = new okhttp3.OkHttpClient()
+    def request = new okhttp3.Request.Builder().url("http://whatthecommit.com/index.txt").build()
+    def response = client.newCall(request).execute()
+    String commitText = response.body().string()
+    response.close()
+    return commitText
+}
+
 void exeDayJsonGitCommit(String currentTimeText) {
     println("exeDayJsonGitCommit called...")
-    List<String> contentList = getCommitContentList()
-    int resultIndex = new Random().nextInt(contentList.size())
-    String commitContent = contentList.get(resultIndex)
+    String commitContent = getRandomCommitText()
     println("currentTimeText:" + currentTimeText)
-    println("resultIndex:" + resultIndex + " commitContent:" + commitContent)
+    println("commitContent:" + commitContent)
     exec {
         workingDir '../'
         commandLine 'git', 'commit', '-m', '' + commitContent
