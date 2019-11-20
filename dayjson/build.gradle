@@ -85,10 +85,12 @@ private static List<String> getCommitContentList() {
 }
 
 void exeDayJsonGitCommit(String currentTimeText) {
-    println("exeDayJsonGitCommit called... currentTimeText:" + currentTimeText)
+    println("exeDayJsonGitCommit called...")
     List<String> contentList = getCommitContentList()
     int resultIndex = new Random().nextInt(contentList.size())
     String commitContent = contentList.get(resultIndex)
+    println("currentTimeText:" + currentTimeText)
+    println("resultIndex:" + resultIndex + " commitContent:" + commitContent)
     exec {
         workingDir '../'
         commandLine 'git', 'commit', '-m', '' + commitContent
