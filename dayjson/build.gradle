@@ -69,11 +69,29 @@ void exeDayJsonGitAdd() {
     }
 }
 
+private static List<String> getCommitContentList() {
+    List<String> contentList = new ArrayList<String>()
+    contentList.add("update today news list and save to file")
+    contentList.add("add one day data to news list")
+    contentList.add("update something new data list to json")
+    contentList.add("add latest news to remote file")
+    contentList.add("fix old news list refresh to latest news")
+    contentList.add("add something news to remote file")
+    contentList.add("update idayily current day page data to remote")
+    contentList.add("add something idayily news list page")
+    contentList.add("opt news page and old page to data list")
+    contentList.add("add world news data and refresh remote file")
+    return contentList
+}
+
 void exeDayJsonGitCommit(String currentTimeText) {
-    println("exeDayJsonGitCommit called...")
+    println("exeDayJsonGitCommit called... currentTimeText:" + currentTimeText)
+    List<String> contentList = getCommitContentList()
+    int resultIndex = new Random().nextInt(contentList.size())
+    String commitContent = contentList.get(resultIndex)
     exec {
         workingDir '../'
-        commandLine 'git', 'commit', '-m', 'update idaily list data ' + currentTimeText
+        commandLine 'git', 'commit', '-m', '' + commitContent
     }
 }
 
