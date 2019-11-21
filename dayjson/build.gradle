@@ -85,8 +85,9 @@ private static List<String> getCommitContentList() {
 }
 
 private static String getRandomCommitText() {
+    String url = "http://whatthecommit.com/index.txt"
     def client = new okhttp3.OkHttpClient()
-    def request = new okhttp3.Request.Builder().url("http://whatthecommit.com/index.txt").build()
+    def request = new okhttp3.Request.Builder().url(url).build()
     def response = client.newCall(request).execute()
     String commitText = response.body().string()
     response.close()
