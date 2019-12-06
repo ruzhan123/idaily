@@ -169,22 +169,31 @@ object DayJsonMain {
             if (item.tags == null) {
                 continue
             }
-            val title = item.title
-            if (title != null && title.isNotBlank()) {
-                val dayDir = File(downloadImageFile, title)
-                if (!dayDir.exists()) {
-                    dayDir.mkdirs()
+            downloadDayNewModel(item.guid, item.title,
+                item.cover_landscape, item.cover_landscape_hd)
+            val album = item.album
+            if (album != null && album.isNotEmpty()) {
+                for (albumItem in album) {
+                    downloadDayNewModel(albumItem.guid, albumItem.title,
+                        albumItem.cover_landscape, albumItem.cover_landscape_hd)
                 }
-                val guid = item.guid
-                val coverLandscape = item.cover_landscape
-                requestFileDownload(coverLandscape, guid, dayDir, "")
-                val coverLandscapeHD = item.cover_landscape_hd
-                requestFileDownload(coverLandscapeHD, guid, dayDir, HD)
-            } else {
-                println("=== find title text is empty === $item" + " : " + item.title)
             }
         }
         println("handlerImageDownload task finish, total handler: (" + list.size + ") image")
+    }
+
+    private fun downloadDayNewModel(guid: Int, title: String?,
+                                    coverLandscape: String?, coverLandscapeHD: String?) {
+        if (title != null && title.isNotBlank()) {
+            val dayDir = File(downloadImageFile, title)
+            if (!dayDir.exists()) {
+                dayDir.mkdirs()
+            }
+            requestFileDownload(coverLandscape, guid, dayDir, "")
+            requestFileDownload(coverLandscapeHD, guid, dayDir, HD)
+        } else {
+            println("=== find title text is empty === $guid : $guid")
+        }
     }
 
 //    private fun requestFileDownload(url: String) {
