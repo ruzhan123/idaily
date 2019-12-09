@@ -38,7 +38,7 @@ object DayJsonMain {
 
     @JvmStatic
     fun main(args: Array<String>) {
-        println("=== main init ===")
+        println("=== main begin ===")
         initCreateJsonFile()
         handleBackupDayNewList()
         handleDayNewList()
